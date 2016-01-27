@@ -104,11 +104,36 @@ extension GameScene {
     node.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
     node.physicsBody?.dynamic = false
     node.physicsBody?.categoryBitMask = CollisionBitMask.Brick
-    node.physicsBody?.contactTestBitMask = 0
+    node.physicsBody?.collisionBitMask = 0
     
     return node
-    
   }
 
-
+  func createFlowerAtPosition(position:CGPoint, ofType type:FlowerType) -> FlowerNode {
+    let node = FlowerNode()
+    let position = CGPoint(x: position.x * scaleFactor, y: position.y)
+    node.position = position
+    node.name = "FLOWERNODE"
+    node.flowerType = type
+    
+    var sprite:SKSpriteNode
+    
+    if type == FlowerType.normalFlower {
+      sprite = SKSpriteNode(imageNamed: "flower")
+      
+      
+    }
+    else {
+      sprite = SKSpriteNode(imageNamed: "flowerSpecial")
+    }
+    
+    node.addChild(sprite)
+    
+    node.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2)
+    node.physicsBody?.dynamic = false
+    node.physicsBody?.categoryBitMask = CollisionBitMask.Flower
+    node.physicsBody?.collisionBitMask = 0
+    
+    return node
+  }
 }
