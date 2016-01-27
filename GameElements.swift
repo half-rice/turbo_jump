@@ -80,6 +80,35 @@ extension GameScene {
     
     return playerNode
   }
+  
+  func createPlatformAtPosition(position:CGPoint, ofType type:PlatformType) -> PlatformNode {
+    let node = PlatformNode()
+    let position = CGPoint(x: position.x * scaleFactor, y: position.y)
+    node.position = position
+    node.name = "PLATFORMNODE"
+    node.platformType = type
+    
+    var sprite:SKSpriteNode
+    
+    if type == PlatformType.normalBrick {
+      sprite = SKSpriteNode(imageNamed: "Platform")
+      
+  
+    }
+    else {
+      sprite = SKSpriteNode(imageNamed: "PlatformBreak")
+    }
+    
+    node.addChild(sprite)
+    
+    node.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
+    node.physicsBody?.dynamic = false
+    node.physicsBody?.categoryBitMask = CollisionBitMask.Brick
+    node.physicsBody?.contactTestBitMask = 0
+    
+    return node
+    
+  }
 
 
 }
